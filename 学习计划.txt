@@ -1,0 +1,15 @@
+1. java基础查漏补缺： https://www.bilibili.com/video/BV1fh411y7R8
+   java8-17： https://www.bilibili.com/video/BV1PY411e7J6
+   jvm： https://www.bilibili.com/video/BV1r94y1b7eS
+2. Mysql： https://www.bilibili.com/video/BV1Kr4y1i7ru
+           https://www.bilibili.com/video/BV1iq4y1u7vj
+3. javaweb： https://www.bilibili.com/video/BV1UN411x7xe
+4. MyBatis： https://www.bilibili.com/video/BV1VP4y1c7j7
+   MyBatis-Plus： https://www.bilibili.com/video/BV12R4y157Be
+5. Docker： https://www.bilibili.com/video/BV1gr4y1U7CY
+6. ElasticSearch： https://www.bilibili.com/video/BV1hh411D7sb
+7. Nginx： https://www.bilibili.com/video/BV1yS4y1N76R
+8. SpringSecurity： https://www.bilibili.com/video/BV15a411A7kP
+9. Kafka： https://www.bilibili.com/video/BV1Gp421m7UN
+10. 苍穹外卖： https://www.bilibili.com/video/BV1TP411v7v6
+11. 微服务： https://www.bilibili.com/video/BV1S142197x7
