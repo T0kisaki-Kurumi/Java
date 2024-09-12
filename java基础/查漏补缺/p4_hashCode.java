@@ -45,6 +45,5 @@ public class p4_hashCode {
         Person2 p2 = new Person2(20, "Robbie", "male");
         System.out.println(p1.hashCode());
         System.out.println(p2.hashCode());
-
     }
 }
