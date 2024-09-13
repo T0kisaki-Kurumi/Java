@@ -42,6 +42,7 @@ class Outer1 {
  * 匿名内部类是一种特殊的内部类，它没有名字，只能在方法内部使用。它的语法格式为：new 父类或接口名() { 重写方法或实现接口的方法体 };
  * 匿名内部类可以简化代码，用于那些只需要用到一次的类，避免定义过多的类。
  * 匿名内部类可以基于接口、抽象类或普通类来实现
+ * 匿名内部类本质上是一个对象
  */
 interface p10_IF {
     void func();
@@ -65,6 +66,10 @@ class p10_CL {
 }
 
 class Outer2 {
+    public static void receive(p10_IF p10_if){
+        p10_if.func();
+    }
+
     public void func() {
         p10_IF p10_if = new p10_IF() {
             @Override
@@ -105,6 +110,32 @@ class Outer2 {
         //单条语句甚至可以省略大括号
 //        p10_IF p10_if2 = () -> System.out.println("调用基于接口和lambda表达式的匿名内部类的重写方法");
         p10_if2.func();
+
+        // 匿名内部类本质上是一个对象，可以作为参数传递给方法
+        receive(new p10_IF() {
+            @Override
+            public void func() {
+                System.out.println("基于接口的匿名内部类用于传参");
+            }
+        });
+    }
+}
+
+/**
+ * 成员内部类：
+ * 地位相当于一个成员变量，可以用访问修饰符，也可以用static修饰
+ */
+class Outer3 {
+    public class Inner3 {
+        public void func() {
+            System.out.println("成员内部类");
+        }
+    }
+
+    public static class Inner3_s {
+        public void func() {
+            System.out.println("静态成员内部类");
+        }
     }
 }
 
@@ -113,7 +144,17 @@ public class p10_内部类 {
 //        Outer1 outer1 = new Outer1();
 //        outer1.func();
 
-        Outer2 outer2 = new Outer2();
-        outer2.func();
+//        Outer2 outer2 = new Outer2();
+//        outer2.func();
+
+        Outer3 outer3 = new Outer3();
+        Outer3.Inner3 inner3 = outer3.new Inner3(); // 声明普通成员内部类的对象语法有点奇怪
+        Outer3.Inner3 inner3_1 = new Outer3().new Inner3(); // 或者直接这样写
+//        Outer3.Inner3 inner3 = new outer3.Inner3(); // 这样是不行的
+        System.out.println(inner3.getClass()); // 全类名是：java基础.查漏补缺.Outer3$Inner3
+
+        Outer3.Inner3_s inner3_s = new Outer3.Inner3_s(); // 声明静态成员内部类的对象语法符合正常习惯
+        inner3_s.func();
+//        Outer3.Inner3_s inner3_s1 = Outer3.new Inner3_s(); // 如果还和普通成员内部类一样声明就会报错
     }
 }
