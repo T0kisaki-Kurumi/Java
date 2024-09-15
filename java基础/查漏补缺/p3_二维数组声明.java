@@ -6,6 +6,7 @@ package java基础.查漏补缺;
  */
 
 public class p3_二维数组声明 {
+    @SuppressWarnings("unused")
     public static void main(String[] args) {
         int[][] arr = new int[3][4];
 
