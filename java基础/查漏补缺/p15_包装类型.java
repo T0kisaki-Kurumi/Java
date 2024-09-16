@@ -47,5 +47,25 @@ public class p15_包装类型 {
         int i5 = Integer.parseInt(str4); // 比valueOf好，因为valueOf返回包装类型，还需要拆箱
         int i6 = new Integer(str4);
 
+        // Integer创建机制：
+        // valueOf代码：
+//        public static Integer valueOf(int i) {
+//            if (i >= Integer.IntegerCache.low && i <= Integer.IntegerCache.high)
+//                return Integer.IntegerCache.cache[i + (-Integer.IntegerCache.low)];
+//            return new Integer(i);
+//        }
+        // -128到127的Integer对象会被缓存，避免频繁创建对象, 范围外才new
+        Integer i7 = 1;
+        Integer i8 = 1;
+        Integer i9 = 128;
+        Integer i10 = 128;
+        System.out.println(i7 == i8);
+        System.out.println(i9 == i10);
+
+        // 但是只要有基本数据类型，判断的就是值是否相等，而不是引用是否相等！！
+        int i11 = 1;
+        int i12 = 128;
+        System.out.println(i7 == i11);
+        System.out.println(i9 == i12);
     }
 }
