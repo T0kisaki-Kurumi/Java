@@ -10,9 +10,8 @@ import java.util.Scanner;
 
 
 public class test {
-    private static Map<Character, Integer> map;
-
     public static void main(String[] args) {
-
+        String[] s = new String[10];
+        System.out.println(Arrays.toString(s));
     }
 }
