@@ -30,6 +30,7 @@ public class p19_Arrays相关方法 {
         // 必须保证数组是升序排序的
         Integer[] arr3 = {1, 3, 5, 7, 9};
         System.out.println(Arrays.binarySearch(arr3, 5)); // 2
+        System.out.println(Arrays.binarySearch(arr3, 6)); // -4， 如果找不到，返回 -(这个元素应该在的位置+1)
         // 若数组是降序排序，则结果不可靠
         Integer[] arr4 = {9, 7, 5, 3, 1};
         System.out.println(Arrays.binarySearch(arr4, 7));
