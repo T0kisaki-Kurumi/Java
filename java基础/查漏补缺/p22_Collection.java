@@ -2,6 +2,7 @@ package java基础.查漏补缺;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -31,5 +32,32 @@ public class p22_Collection {
         list1.remove(1); // List接口有按index删除的remove方法,传入字面量的时候调用
         list1.remove(new Integer(1)); // 传入其他类型的时候调用的仍然是按元素删除的方法
         System.out.println(list1);
+
+        System.out.println(list.contains(1));
+        System.out.println(list.containsAll(new ArrayList(){{add(1);add("hello");}}));
+        System.out.println(list.size());
+        list.clear();
+        System.out.println(list.isEmpty());
+        list.addAll(list1);
+        list.removeAll(list1);
+
+        list.add(1);
+        list.add("world");
+        list.add(true);
+        list.add(null);
+        list.add(1.2f);
+//        list.add(1, "hello"); // Collection中没有按index插入的add方法
+
+        Iterator iterator = list.iterator();
+        while (iterator.hasNext()) {  // 快捷键 itit
+            Object next =  iterator.next();
+            System.out.print(next + " ");
+        }
+//        Object next =  iterator.next();  // 再调用一次next，由于没有元素，会抛出NoSuchElementException异常
+        System.out.println();
+        // 或者直接用增强for，底层仍然是Iterator
+        for (Object obj : list) {  // 快捷键 I
+            System.out.print(obj + " ");
+        }
     }
 }

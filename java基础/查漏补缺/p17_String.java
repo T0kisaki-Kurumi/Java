@@ -45,8 +45,11 @@ public class p17_String {
         // substring：字符串截取
         System.out.println(str6.substring(3)); // 截取第3个字符（包括）后面所有字符
         System.out.println(str6.substring(3, 6)); // 截取[3, 6)区间的字符，注意是左闭右开区间
-        // indexOf：查找子串的位置
+        // indexOf：查找子串第一次出现的位置
         System.out.println(str6.indexOf("wo"));  // 底层是BM算法，而不是KMP算法。Boyer-Moore 算法在处理大文本和小模式时表现良好，而 KMP 更适合处理模式长度较长的情况。
+        System.out.println(str6.indexOf("l", 3));
+        System.out.println(str6.indexOf("l", 4));
+        System.out.println(str6.lastIndexOf("l"));
         // concat：字符串拼接
         String str7 = str6.concat("!");
         // split：字符串分割
