@@ -1,25 +1,62 @@
-import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
 
-class Father {
-    protected  transient int age;
+class C1 {
+    @Override
+    public int hashCode() {
+        return 0x12121212;
+    }
 
-    public Father(int age) {
-        this.age = age;
+    @Override
+    public String toString() {
+        return "C1";
     }
 }
 
-class Son extends Father {
-    public Son(int age) {
-        super(age);
+class C2 {
+    @Override
+    public int hashCode() {
+        return 0x12120000;
+    }
+
+    @Override
+    public String toString() {
+        return "C2";
+    }
+}
+
+class C3 {
+    @Override
+    public int hashCode() {
+        return 2;
+    }
+
+    @Override
+    public String toString() {
+        return "C3";
+    }
+}
+
+class C4 {
+    @Override
+    public int hashCode() {
+        return 1;
+    }
+
+    @Override
+    public String toString() {
+        return "C4";
     }
 }
 
 public class test {
-    public static void main(String[] args) throws Exception {
-        Son son = new Son(25);
-//        System.out.println(son.age);
-        Field ageField1 = son.getClass().getDeclaredField("age");
-        ageField1.setAccessible(true);
-        System.out.println(ageField1.get(son));
+    public static void main(String[] args) {
+        Set set = new HashSet<>();
+        for(int i=0; i<10000; ++i){
+            set.add(i);
+        }
+        System.out.println(set);
     }
 }
