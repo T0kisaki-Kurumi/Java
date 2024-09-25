@@ -113,8 +113,8 @@ public class p32_泛型 {
         List<? extends A> list2 = new ArrayList(){{add(new B());}};
         list1.add(new A());
         list1.add(new B());
-        list2.add(new A());
-        list2.add(new B());
+//        list2.add(new A());
+//        list2.add(new B());
     }
 
     public static void main(String[] args) throws NoSuchFieldException {
