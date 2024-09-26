@@ -1,5 +1,7 @@
 package java基础.查漏补缺;
 
+import org.junit.Test;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +13,8 @@ import java.util.Set;
  */
 
 public class p28_Map_HashMap {
-    static void test1(){
+    @Test
+    public void test1(){
         Map hashMap = new HashMap();
         hashMap.put("apple", 10);
         hashMap.put("orange", 20);
@@ -40,7 +43,8 @@ public class p28_Map_HashMap {
         System.out.println(collection);
     }
 
-    static void test2(){
+    @Test
+    public void test2(){
         // 一些基本操作
         Map map = new HashMap();
         map.put("a", 1);
@@ -63,7 +67,5 @@ public class p28_Map_HashMap {
     }
 
     public static void main(String[] args) {
-//        test1();
-        test2();
     }
 }

@@ -1,5 +1,7 @@
 package java基础.查漏补缺;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +44,9 @@ class p32_Generic2 {
     }
 }
 
-class p32_Father {
+class p32_GrandFather {}
+
+class p32_Father extends p32_GrandFather {
     public void func() {
         System.out.println("father func");
     }
@@ -60,7 +64,8 @@ class p32_Son extends p32_Father {
 }
 
 public class p32_泛型 {
-    static void test1() throws NoSuchFieldException {
+    @Test
+    public void test1() throws NoSuchFieldException {
         // 泛型可以在编译时就对类型进行检查，并且减少类型转换带来的效率损失
         List<String> list = new ArrayList<>();
         list.add("hello");
@@ -81,7 +86,8 @@ public class p32_泛型 {
         System.out.println(g3.getClass().getField("x").getType());
     }
 
-    static void test2() {
+    @Test
+    public void test2() {
         List<p32_Father> list = new ArrayList<>();
         list.add(new p32_Father());
         list.add(new p32_Son()); // 子类也可以传入
@@ -95,7 +101,8 @@ public class p32_泛型 {
         }
     }
 
-    static void test3() {
+    @Test
+    public void test3() {
         p32_Generic2 g = new p32_Generic2();
         // 泛型方法的泛型类型是自动推导的
         g.func(111);
@@ -105,22 +112,73 @@ public class p32_泛型 {
         g.<String> func("world");
     }
 
-    static void test4() {
-        class A {}
-        class B extends A {}
+    static void test_generic1(List<p32_Father> list){}
+    static void test_generic2(List<? extends p32_Father> list){}
+    static void test_generic3(List<? super p32_Father> list){}
+    static void test_generic4(List<?> list){}
 
-        List<A> list1 = new ArrayList<>();
-        List<? extends A> list2 = new ArrayList(){{add(new B());}};
-        list1.add(new A());
-        list1.add(new B());
-//        list2.add(new A());
-//        list2.add(new B());
+    @Test
+    public void test4() {
+
+        List<p32_Father> list1 = new ArrayList<>();
+        List<p32_Son> list2 = new ArrayList<>();
+        // 数据具有继承性，但方法没有
+        list1.add(new p32_Father());
+        list1.add(new p32_Son());
+        test_generic1(list1);
+//        test_generic1(list2); // 类型不匹配
+        test_generic2(list1);
+        test_generic2(list2); // 如果想要使用子类，可以在形参类型上使用通配符<? extends T>
+
+        List<p32_GrandFather> grandFather = new ArrayList<>();
+        List<p32_Father> father = new ArrayList<>();
+        List<p32_Son> son = new ArrayList<>();
+        List<String> string = new ArrayList<>();
+        List<Object> obj = new ArrayList<>();
+        List list_no = new ArrayList(); // 未指定泛型类型，可以随便传，但正常不会这样用
+
+        // ? extends p32_Father 泛型类型上限，只能获取类及其子类
+//        test_generic2(grandFather);
+        test_generic2(father);
+        test_generic2(son);
+//        test_generic2(string);
+//        test_generic2(obj);
+        test_generic2(list_no);
+
+        // ? super p32_Father 泛型类型下限，只能获取类及其父类
+        test_generic3(grandFather);
+        test_generic3(father);
+//        test_generic3(son);
+//        test_generic3(string);
+        test_generic3(obj);
+        test_generic3(list_no);
+
+        // ? 通配符，可以获取任何类型
+        test_generic4(grandFather);
+        test_generic4(father);
+        test_generic4(son);
+        test_generic4(string);
+        test_generic4(obj);
+        test_generic4(list_no);
+
+        // ? extends p32_Father赋值后不能加入任何对象，因为假设赋值了一个Son的子类<GrandSon>类型，那么自然不能加入Father和Son
+        // 简单来说就是编译器在编译时不知道该泛型类型到底是什么，所以不能进行类型检查
+        List<? extends p32_Father> list_extends = new ArrayList<>(); // <>不填默认是Father类型，如果要填只能填Father或其子类
+//        list_extends.add(new p32_GrandFather());
+//        list_extends.add(new p32_Father());
+//        list_extends.add(new p32_Son());
+
+        // ? super p32_Father赋值后可以加入Father及其子类
+        // 虽然编译器在编译时也不能确定泛型具体是什么，但是能确定的一件事是最后的类型一定是Father或其父类，那么通过多态，Father及其子类是一定能传入的
+        List<? super p32_Father> list_super = new ArrayList<>(); // <>不填默认是Father类型，如果要填只能填Father或其父类
+//        list_father.add(new p32_GrandFather());
+        list_super.add(new p32_Father());
+        list_super.add(new p32_Son());
+        // 取出的时候均为<? super p32_Father>类型，需要强转
+        p32_Father father1 = (p32_Father) list_super.get(0);
+        p32_Son son1 = (p32_Son) list_super.get(1);
     }
 
     public static void main(String[] args) throws NoSuchFieldException {
-//        test1();
-//        test2();
-//        test3();
-        test4();
     }
 }
