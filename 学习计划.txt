@@ -1,4 +1,5 @@
 1. java基础查漏补缺： https://www.bilibili.com/video/BV1fh411y7R8
+   多线程https://www.bilibili.com/video/BV1LG4y1T7n2
    java8-17： https://www.bilibili.com/video/BV1PY411e7J6
    jvm： https://www.bilibili.com/video/BV1r94y1b7eS
 2. Mysql： https://www.bilibili.com/video/BV1Kr4y1i7ru

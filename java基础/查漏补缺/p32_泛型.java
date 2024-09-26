@@ -44,6 +44,13 @@ class p32_Generic2 {
     }
 }
 
+// 继承的时候可以指定泛型类型，也可以把泛型继承下来
+interface p32_Interface<T> {}
+class p32_Impl1 implements p32_Interface<String> {}
+class p32_Impl2<T> implements p32_Interface<T> {}
+class p32_Impl3 extends p32_Generic1<Integer> {}
+class p32_Impl4<T> extends p32_Generic1<T> {}
+
 class p32_GrandFather {}
 
 class p32_Father extends p32_GrandFather {
