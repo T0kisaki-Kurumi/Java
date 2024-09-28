@@ -34,7 +34,7 @@ class p35_MyRunnable implements Runnable {
     }
 }
 
-public class p35_同步代码块 {
+public class p35_同步代码块和同步方法 {
     static final Object lock = new Object();
     static int count = 0;
 
