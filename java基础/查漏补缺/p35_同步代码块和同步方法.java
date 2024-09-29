@@ -19,6 +19,8 @@ class p35_MyRunnable implements Runnable {
         }
     }
 
+    // 同步方法，实际上就相当于一个同步代码块
+    // 非静态同步方法的锁对象是this，静态同步方法的锁对象是类对象
     synchronized boolean method() {
         if (count < 50) {
             System.out.println(Thread.currentThread().getName() + " : " + count++);
