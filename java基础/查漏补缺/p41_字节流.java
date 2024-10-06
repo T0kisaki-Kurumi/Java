@@ -21,7 +21,7 @@ public class p41_字节流 {
     public void test1() throws IOException {
 //        FileInputStream fis = null;
 //        try {
-//            fis = new FileInputStream("java基础/查漏补缺/p40_文件相关/test1.txt");
+//            fis = new FileInputStream("java基础/查漏补缺/IO流/test1.txt");
 //            int b;
 //            while ((b = fis.read())!= -1) {
 //                System.out.print((char) b + " ");
@@ -40,7 +40,7 @@ public class p41_字节流 {
 //        }
 
         // 可以使用try-with-resources语句自动关闭资源，需要流对象实现了Closeable接口
-        try (FileInputStream fis = new FileInputStream("java基础/查漏补缺/p40_文件相关/test1.txt")) {
+        try (FileInputStream fis = new FileInputStream("java基础/查漏补缺/IO流/test1.txt")) {
             int b;
             while ((b = fis.read()) != -1) {
                 System.out.print((char) b + " ");
@@ -54,7 +54,7 @@ public class p41_字节流 {
     public void test2() throws IOException {
         int size = 8;
         byte[] bytes = new byte[size];
-        try (FileInputStream fis = new FileInputStream("java基础/查漏补缺/p40_文件相关/test1.txt")) {
+        try (FileInputStream fis = new FileInputStream("java基础/查漏补缺/IO流/test1.txt")) {
             int len;
             while ((len = fis.read(bytes)) != -1) {
                 // 注意这边new String里面要写len不能写size，如果是size则最后一次可能会输出未被覆盖的上一次的内容
@@ -67,12 +67,12 @@ public class p41_字节流 {
     // 文件流写入单个字符
     public void test3() throws IOException {
         // 没有文件的话会自动创建，但不会创建多级目录
-        try (FileOutputStream fos = new FileOutputStream("java基础/查漏补缺/p40_文件相关/test2.txt")) {
+        try (FileOutputStream fos = new FileOutputStream("java基础/查漏补缺/IO流/test2.txt")) {
             fos.write('a');
             fos.write('b');
         }
         // 创建IO流对象时可以指定第二个参数true，表示追加模式。默认为false，每次写入都会清空文件内容
-        try (FileOutputStream fos = new FileOutputStream("java基础/查漏补缺/p40_文件相关/test2.txt", true)) {
+        try (FileOutputStream fos = new FileOutputStream("java基础/查漏补缺/IO流/test2.txt", true)) {
             fos.write('c');
         }
     }
@@ -80,7 +80,7 @@ public class p41_字节流 {
     @Test
     // 文件流写入多个字符
     public void test4() throws IOException {
-        try (FileOutputStream fos = new FileOutputStream("java基础/查漏补缺/p40_文件相关/test3.txt")) {
+        try (FileOutputStream fos = new FileOutputStream("java基础/查漏补缺/IO流/test3.txt")) {
             fos.write("hello world啊啊啊".getBytes());
             fos.write("0123456789".getBytes(), 3, 4); // 从索引3开始写入4个字符
         }
