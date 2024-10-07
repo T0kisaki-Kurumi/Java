@@ -99,4 +99,11 @@ public class p41_字节流 {
              }
         }
     }
+
+    @Test
+    // 标准输入输出流也是字节流
+    public void test6() {
+        System.out.println(System.in.getClass()); // System.in的运行类型是BufferedInputStream
+        System.out.println(System.out.getClass()); // System.out的运行类型是PrintStream
+    }
 }

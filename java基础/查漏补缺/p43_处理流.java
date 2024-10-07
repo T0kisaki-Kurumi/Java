@@ -7,12 +7,17 @@ import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 
 /**
@@ -125,5 +130,45 @@ public class p43_处理流 {
             System.out.println(ois.readUTF());
             System.out.println(ois.readObject());
         }
+    }
+
+    @Test
+    // InputStreamReader和OutputStreamWriter。转换流，本质上是字符流（输入输出都是字符）
+    // 可以解决编码问题
+    public void test4() throws IOException {
+        // 由于是ANSI编码，所以会出现乱码
+        try (BufferedReader br = new BufferedReader(new FileReader("java基础/查漏补缺/IO流/test_gbk.txt"))) {
+            System.out.println(br.readLine());
+        }
+
+        // 使用转换流解决编码问题。在简体中文环境下，ANSI编码实际上就是GBK编码
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("java基础/查漏补缺/IO流/test_gbk.txt"), "GBK"))) {
+            System.out.println(br.readLine());
+        }
+
+        String charSet = "big5";
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("java基础/查漏补缺/IO流/test_" + charSet + ".txt"), charSet))) {
+            bw.write("你好，世界");
+        }
+    }
+
+    @Test
+    // PrintStream和PrintWriter。打印流，可以直接输出到控制台
+    public void test5() throws FileNotFoundException {
+//        PrintStream ps = System.out; // System.out就是一个PrintStream对象
+//        ps.println("hello world");
+//        // 可以修改System的打印流，以改变输出的位置
+//        try (PrintStream ps1 = new PrintStream("java基础/查漏补缺/IO流/test7.txt")) {
+//            System.setOut(ps1);
+//            System.out.println("你好，世界");
+//            ps = System.out; // 一定要加这句，否则还是原来的PrintStream对象的引用
+//            ps.println(123);
+//        }
+
+        // 注意PrintWriter也必须close或flush才会输出
+        try (PrintWriter pw = new PrintWriter(System.out)) {
+            pw.println("你好，世界");
+        }
+        // 其他用法和FileWriter类似，也可以输出到文件
     }
 }
