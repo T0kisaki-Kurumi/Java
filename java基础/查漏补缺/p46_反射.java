@@ -20,23 +20,24 @@ class p46_Animal {
     }
 }
 
-class Cat extends p46_Animal implements Cloneable, Serializable {
+@Deprecated
+class p46_Cat extends p46_Animal implements Cloneable, Serializable {
     protected static final int WEIGHT = 80;
     public String name = "Tom";
     private int age = 18;
 
-    public Cat() {
+    public p46_Cat() {
     }
 
-    public Cat(String name) {
+    public p46_Cat(String name) {
         this.name = name;
     }
 
-    protected Cat(int age) {
+    protected p46_Cat(int age) {
         this.age = age;
     }
 
-    private Cat(String name, int age) {
+    private p46_Cat(String name, int age) {
         this.name = name;
         this.age = age;
     }
@@ -57,9 +58,9 @@ class Cat extends p46_Animal implements Cloneable, Serializable {
 
 public class p46_反射 {
     public static void main(String[] args) throws Exception {
-        // 正常创建对象和用反射在底层都调用了ClassLoader的loadClass方法
-//        Cat cat = new Cat();
-        Class<?> clazz1 = Class.forName("java基础.查漏补缺.Cat");
+        // 正常创建对象和用反射在底层都调用了ClassLoader的loadClass方法，该方法全局只会执行一次
+//        p46_Cat cat = new p46_Cat(); // 直接new是静态加载，如果没有这个类会在编译时报错
+        Class<?> clazz1 = Class.forName("java基础.查漏补缺.p46_Cat"); // 通过反射加载是动态加载，如果没有这个类，编译不会报错，而会在运行时报错
         Class<?> clazz2 = Class.forName("java基础.查漏补缺.p46_Animal");
         String s = "abc";
 
@@ -72,9 +73,9 @@ public class p46_反射 {
     @Test
     // 反射获取Class对象的三种方式
     public void test1() throws Exception {
-        Class<?> clazz1 = Class.forName("java基础.查漏补缺.Cat");// 通过全类名获取类对象
-        Class<?> clazz2 = Cat.class;// 通过类对象获取类对象
-        Cat cat = new Cat();
+        Class<?> clazz1 = Class.forName("java基础.查漏补缺.p46_Cat");// 通过全类名获取类对象
+        Class<?> clazz2 = p46_Cat.class;// 通过类对象获取类对象
+        p46_Cat cat = new p46_Cat();
         Class<?> clazz3 = cat.getClass();// 通过实例对象获取类对象
         System.out.println(clazz1 == clazz2);// true
         System.out.println(clazz1 == clazz3);// true
@@ -83,7 +84,7 @@ public class p46_反射 {
     @Test
     // 反射获取构造方法相关信息
     public void test2() throws Exception {
-        Class<?> clazz = Class.forName("java基础.查漏补缺.Cat");
+        Class<?> clazz = Class.forName("java基础.查漏补缺.p46_Cat");
         Constructor[] constructors1 = clazz.getConstructors(); // 获取所有public的构造方法
         Constructor[] constructors2 = clazz.getDeclaredConstructors(); // 获取所有构造方法
         Constructor constructor1 = clazz.getConstructor(String.class); // 获取单个public的构造方法
@@ -105,10 +106,14 @@ public class p46_反射 {
         System.out.println(Arrays.toString(parameters1));
         System.out.println(Arrays.toString(parameters2));
 
+        // 获取参数类型
+        Class[] parameterTypes = constructor2.getParameterTypes();
+        System.out.println(Arrays.toString(parameterTypes));
+
         // 通过构造方法创建实例对象
-        Cat cat1 = (Cat) constructor1.newInstance("Kitty");
+        p46_Cat cat1 = (p46_Cat) constructor1.newInstance("Kitty");
         constructor2.setAccessible(true);
-        Cat cat2 = (Cat) constructor2.newInstance("Kitty", 20);
+        p46_Cat cat2 = (p46_Cat) constructor2.newInstance("Kitty", 20);
         cat1.cry();
         cat2.cry();
     }
@@ -116,7 +121,7 @@ public class p46_反射 {
     @Test
     // 反射获取成员变量相关信息
     public void test3() throws Exception {
-        Class<?> clazz = Class.forName("java基础.查漏补缺.Cat");
+        Class<?> clazz = Class.forName("java基础.查漏补缺.p46_Cat");
         Field[] fields1 = clazz.getFields(); // 获取所有public的成员变量
         Field[] fields2 = clazz.getDeclaredFields(); // 获取所有成员变量
         Field field1 = clazz.getField("name"); // 获取单个public的成员变量
@@ -125,13 +130,15 @@ public class p46_反射 {
         System.out.println(Arrays.toString(fields2));
         System.out.println(field1);
         System.out.println(field2);
+
+        // 获取权限修饰符，返回的是一个整数，具体含义见java.lang.reflect.Modifier类
         int modifiers1 = field1.getModifiers();
         int modifiers2 = field2.getModifiers();
         System.out.println(modifiers1); // 1 = Modifier.PUBLIC
         System.out.println(modifiers2); // 28 = 16 + 8 + 4 = Modifier.FINAL + Modifier.STATIC + Modifier.PROTECTED
 
         // 获取成员变量的值
-        Cat cat = new Cat();
+        p46_Cat cat = new p46_Cat();
         System.out.println(field1.get(cat)); // 注意获取到的都是Object类型
         field2.setAccessible(true);
         System.out.println(field2.get(cat));
@@ -150,7 +157,7 @@ public class p46_反射 {
     @Test
     // 反射获取方法相关信息
     public void test4() throws Exception {
-        Class<?> clazz = Class.forName("java基础.查漏补缺.Cat");
+        Class<?> clazz = Class.forName("java基础.查漏补缺.p46_Cat");
         Method[] methods1 = clazz.getMethods(); // 获取所有public的方法（包括继承的）
         Method[] methods2 = clazz.getDeclaredMethods(); // 获取所有的方法（不包括继承的）
         Method method1 = clazz.getMethod("walk"); // 获取单个public的方法（包括继承的）
@@ -197,10 +204,14 @@ public class p46_反射 {
     @Test
     // 反射获取类本身相关信息
     public void test5() throws Exception {
-        Class<?> clazz = Class.forName("java基础.查漏补缺.Cat");
+        Class<?> clazz = Class.forName("java基础.查漏补缺.p46_Cat");
         System.out.println(clazz.getName()); // 全类名
         System.out.println(clazz.getSimpleName()); // 类名
         System.out.println(clazz.getPackage()); // 包名
+        System.out.println(clazz.getSuperclass()); // 父类
+        System.out.println(Arrays.toString(clazz.getInterfaces())); // 实现的接口
+        System.out.println(Arrays.toString(clazz.getAnnotations())); // 使用的注解。注意必须是RetentionPolicy.RUNTIME的注解才会在这里获取到
+
         System.out.println(clazz.isArray()); // 是否是数组
         System.out.println(clazz.isInterface()); // 是否是接口
         System.out.println(clazz.isPrimitive()); // 是否是基本类型
@@ -210,8 +221,6 @@ public class p46_反射 {
         System.out.println(clazz.isLocalClass()); // 是否是局部类
         System.out.println(clazz.isMemberClass()); // 是否是成员类
         System.out.println(clazz.isSynthetic()); // 是否是合成类
-        System.out.println(clazz.getSuperclass()); // 父类
-        System.out.println(Arrays.toString(clazz.getInterfaces())); // 实现的接口
 
         // isAssignableFrom和instanceof的区别
         // 都可以判断一个类是否是另一个类或接口本身或其子类
@@ -224,7 +233,7 @@ public class p46_反射 {
     // 反射性能测试和优化
     public void test6() throws Exception {
         final int COUNT = 100000000;
-        Cat cat = new Cat();
+        p46_Cat cat = new p46_Cat();
         Class<?> clazz = cat.getClass();
         long start = System.currentTimeMillis();
         for (int i = 0; i < COUNT; i++) {
@@ -253,6 +262,13 @@ public class p46_反射 {
     @Test
     // 可以获取class对象的类型
     public void test7() throws Exception {
-
+        Class<p46_Cat> clazz1 = p46_Cat.class; // 外部类
+        Class<Serializable> clazz2 = Serializable.class; // 接口
+        Class<int[]> clazz3 = int[].class; // 数组
+        Class<String[][]> clazz4 = String[][].class; // 二维数组
+        Class<Override> clazz5 = Override.class; // 注解
+        Class<Thread.State> clazz6 = Thread.State.class; // 枚举
+        Class<Character> clazz7 = char.class; // 基本类型（注意泛型是包装类型）
+        Class<Void> clazz8 = void.class; // void类型
     }
 }

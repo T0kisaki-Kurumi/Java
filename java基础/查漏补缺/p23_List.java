@@ -1,8 +1,6 @@
 package java基础.查漏补缺;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -27,7 +25,7 @@ public class p23_List {
 
         System.out.println(list.subList(2, 4)); // 子列表，左闭右开
 
-        list.sort((o1, o2) -> ((String)o1).compareTo((String)o2));
+        list.sort((o1, o2) -> ((String) o1).compareTo((String) o2));
 //        list.sort(Comparator.comparing(o -> ((String) o))); // 相当于
         System.out.println(list);
 
