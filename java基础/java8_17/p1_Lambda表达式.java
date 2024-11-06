@@ -1,5 +1,7 @@
 package java基础.java8_17;
 
+import java.util.Comparator;
+import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -10,20 +12,27 @@ import java.util.function.Supplier;
  * @since 2024/10/16
  */
 
-//abstract class p1_Father {
-////    public void Hello(String s) {
-////        System.out.println("Hello " + s);
-////    }
-//    abstract void Hello(String s);
-//}
+interface p1_GrandFather {
+    void grandHello();
+}
 
 // lambda表达式替换的对象必须是接口
 // 如果接口中只有一个抽象方法，这个接口就叫做函数式接口
 @FunctionalInterface
-interface p1_Father {
+interface p1_Father /* extends p1_GrandFather */ {
     // 如果要用lambda表达式，只能含有一个抽象方法
     String Hello(String s);
 //    void Hello2(String s, int i);
+
+    // 可以有default方法
+    default void sayHello() {
+        System.out.println("Hello World");
+    }
+
+    // 可以有从Object继承的其他方法
+    boolean equals(Object obj);
+
+    // 不能有从其他接口继承的方法
 }
 
 public class p1_Lambda表达式 {
@@ -33,14 +42,40 @@ public class p1_Lambda表达式 {
         System.out.println(father1.Hello("Robbie"));
 
         // 几个常用的函数式接口
-        Consumer<String> consumer = System.out::println;
-        Supplier<String> supplier = () -> "Hello World2";
-        Function<String, Integer> function = String::length;
-        Predicate<String> predicate = s -> s.length() > 5;
+        Consumer<String> consumer = System.out::println; // 相当于 Function<T, void>
+        Supplier<String> supplier = () -> "Hello World2"; // 相当于 Function<void, T>
+        Function<String, Integer> function = String::length; // 当然泛型类型肯定不能写void
+        Predicate<String> predicate = s -> s.length() > 5; // 相当于 Function<T, boolean>
 
         consumer.accept("Hello World1");
         System.out.println(supplier.get());
         System.out.println(function.apply("Hello World3"));
         System.out.println(predicate.test("Hello World4"));
+
+        // 方法引用
+        // 当方法的形参和返回值类型与函数式接口中方法的形参和返回值类型相同时，可以使用方法引用
+        // 1. 对象::实例方法名
+        Consumer<String> s = System.out::println;
+        s.accept("Hello World5");
+        // 2. 类::静态方法名
+        Comparator<Integer> c = Integer::compare;
+        System.out.println(c.compare(1, 3));
+        // 3. 类::实例方法名
+        BiPredicate<String, String> bp = String::equals;
+        System.out.println(bp.test("Hello", "World"));
+
+        //构造器引用
+        // 类名::new
+        // 构造器引用实际上类似于一个get方法
+        // 调用的哪个构造器由参数类型决定
+        Supplier<String> s2 = String::new; // Supplier<String> 相当于 Function<void, String>，即无参数构造器
+        System.out.println(s2.get().isEmpty());
+        Function<String, String> f2 = String::new;
+        System.out.println(f2.apply("Hello World6"));
+
+        // 数组引用
+        // 实际上是一种特殊的构造器引用，构造器形参是Integer类型，用来指定数组的长度
+        Function<Integer, String[]> f3 = String[]::new;
+        System.out.println(f3.apply(3).length);
     }
 }
