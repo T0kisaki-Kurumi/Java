@@ -61,7 +61,9 @@ public class p1_Lambda表达式 {
         Comparator<Integer> c = Integer::compare;
         System.out.println(c.compare(1, 3));
         // 3. 类::实例方法名
-        BiPredicate<String, String> bp = String::equals;
+        // 函数式接口中的抽象方法a与其内部实现时调用的对象的某个方法b的返回值类型相同。
+        // 同时，抽象方法a中有n个参数，方法b中有n-1个参数，且抽象方法a的第1个参数作为方法b的调用者，且抽象方法a的后n-1个参数与方法b的n-1个参数的类型相同
+        BiPredicate<String, String> bp = String::equals; // 举例：BiPredicate中的test方法和String::equals方法都返回boolean类型，且test方法有两个参数，equals方法有一个参数
         System.out.println(bp.test("Hello", "World"));
 
         //构造器引用
