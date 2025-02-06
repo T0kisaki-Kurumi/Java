@@ -103,6 +103,7 @@ class Outer2 {
         p10_cl2.func();
 
         // 可以简化为lambda表达式，此时甚至都不会生成匿名内部类！
+        // 也就是说，传统匿名内部类内部的 this 指向匿名内部类自身的实例，Lambda 表达式内部的 this 指向外部类的实例。
         p10_IF p10_if2 = () -> {
             System.out.println("调用基于接口和lambda表达式的匿名内部类的重写方法");
             System.out.println("类名 = " + this.getClass());
@@ -144,17 +145,17 @@ public class p10_内部类 {
 //        Outer1 outer1 = new Outer1();
 //        outer1.func();
 
-//        Outer2 outer2 = new Outer2();
-//        outer2.func();
+        Outer2 outer2 = new Outer2();
+        outer2.func();
 
-        Outer3 outer3 = new Outer3();
-        Outer3.Inner3 inner3 = outer3.new Inner3(); // 声明普通成员内部类的对象语法有点奇怪
-        Outer3.Inner3 inner3_1 = new Outer3().new Inner3(); // 或者直接这样写
-//        Outer3.Inner3 inner3 = new outer3.Inner3(); // 这样是不行的
-        System.out.println(inner3.getClass()); // 全类名是：java基础.查漏补缺.Outer3$Inner3
-
-        Outer3.Inner3_s inner3_s = new Outer3.Inner3_s(); // 声明静态成员内部类的对象语法符合正常习惯
-        inner3_s.func();
-//        Outer3.Inner3_s inner3_s1 = Outer3.new Inner3_s(); // 如果还和普通成员内部类一样声明就会报错
+//        Outer3 outer3 = new Outer3();
+//        Outer3.Inner3 inner3 = outer3.new Inner3(); // 声明普通成员内部类的对象语法有点奇怪
+//        Outer3.Inner3 inner3_1 = new Outer3().new Inner3(); // 或者直接这样写
+////        Outer3.Inner3 inner3 = new outer3.Inner3(); // 这样是不行的
+//        System.out.println(inner3.getClass()); // 全类名是：java基础.查漏补缺.Outer3$Inner3
+//
+//        Outer3.Inner3_s inner3_s = new Outer3.Inner3_s(); // 声明静态成员内部类的对象语法符合正常习惯
+//        inner3_s.func();
+////        Outer3.Inner3_s inner3_s1 = Outer3.new Inner3_s(); // 如果还和普通成员内部类一样声明就会报错
     }
 }

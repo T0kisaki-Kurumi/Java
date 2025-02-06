@@ -10,8 +10,6 @@ import java.util.stream.Collectors;
 public class test {
 
     public static void main(String[] args) {
-        List<String> list = Arrays.asList("apple ", "banana ", "orange ", "grape ", "orange ");
-        LinkedHashSet<String> collect = list.stream().sorted().collect(Collectors.toCollection(LinkedHashSet::new));
-        System.out.println(collect);
+
     }
 }

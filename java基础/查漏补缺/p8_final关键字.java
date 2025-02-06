@@ -40,7 +40,7 @@ public class p8_final关键字 {
 
         // final和static建议一起使用，因为底层做了优化，一起用的时候编译器会在编译时将这些常量的值直接替换到使用它们的地方，而不会进行类的初始化，也就不会执行static代码块
         // 而只用static的时候会正常执行static代码块
-        System.out.println(p8_B.AGE);
-//        System.out.println(p8_B.SALARY);
+//        System.out.println(p8_B.AGE);
+        System.out.println(p8_B.SALARY);
     }
 }

@@ -39,7 +39,7 @@ public class p41_字节流 {
 //            }
 //        }
 
-        // 可以使用try-with-resources语句自动关闭资源，需要流对象实现了Closeable接口
+        // 可以使用try-with-resources语句自动关闭资源，需要流对象实现了AutoCloseable接口
         try (FileInputStream fis = new FileInputStream("java基础/查漏补缺/IO流/test1.txt")) {
             int b;
             while ((b = fis.read()) != -1) {
