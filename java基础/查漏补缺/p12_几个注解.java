@@ -53,6 +53,7 @@ public class p12_几个注解 {
         @MyAnnotation String str = "Hello World";
 //        @MyAnnotation java.lang.String str2 = "Hello World";  // 报错
         java.lang. @MyAnnotation String str3 = "Hello World";  // 正确写法
+        java.  lang. String str4 = "Hello World"; // 注意.后面正常情况下也可以加空格的
     }
 
     @SuppressWarnings("all")  // 告诉编译器忽略，all表示所有警告，还有更具体的警告类型

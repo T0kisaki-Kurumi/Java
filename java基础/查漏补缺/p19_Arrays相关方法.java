@@ -57,5 +57,6 @@ public class p19_Arrays相关方法 {
         // 将一组数字转为数组
         List<Integer> list1 = Arrays.asList(1, 3, 5, 7, 9);
         System.out.println(list1);
+        System.out.println(list1.getClass()); //实现类是Arrays.ArrayList，而不是ArrayList
     }
 }

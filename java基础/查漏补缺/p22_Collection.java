@@ -21,7 +21,7 @@ public class p22_Collection {
         list.add(1);
         System.out.println(list); // toString方法重写过，可以直接输出集合元素
 
-        list.remove(1);  // Collection接口只有按元素删除的remove方法
+        list.remove(1);  // Collection接口只有按元素删除的remove方法，删除第一个匹配的元素
         System.out.println(list);
 
         List list1 = new ArrayList();

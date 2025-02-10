@@ -24,9 +24,10 @@ public class p11_enum {
         System.out.println(green.name()); // 输出枚举对象的名称
         System.out.println(green.ordinal()); // 输出枚举对象的次序，从0开始
         System.out.println(Arrays.toString(Color.values()));
+        System.out.println(green.getClass());
         Color color = Color.valueOf("RED"); // 根据名称获取枚举对象
         System.out.println(color.name());
-//        Color color_e = Color.valueOf("PINK"); // 没有这个名称的枚举对象会报错
+//        Color color_e = Color.valueOf("red"); // 没有这个名称的枚举对象会报错
 
         Color color1 = Color.RED;
         Color color2 = Color.BLUE;

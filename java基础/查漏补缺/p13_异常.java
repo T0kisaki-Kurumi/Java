@@ -62,7 +62,7 @@ public class p13_异常 {
 
         // 3. ClassCastException - 类型转换异常
         try {
-            Object i = new Integer(1);
+            Object i = 1;
             String str = (String) i;
             System.out.println(str);
         } catch (Exception e) {
